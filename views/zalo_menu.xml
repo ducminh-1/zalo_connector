@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Zalo Connector" id="zalo_connector_menu" web_icon="zalo_connector,static/description/icon.png"/>
+    <menuitem name="Configuration" id="zalo_configuration_menu" parent="zalo_connector_menu" sequence="99"/>
+</odoo>

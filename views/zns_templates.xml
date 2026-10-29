@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="zns_template_view_form" model="ir.ui.view">
+            <field name="name">zns.template.view.form</field>
+            <field name="model">zns.template</field>
+            <field name="arch" type="xml">
+                <form string="ZNS Templates">
+                    <header>
+                        <button name="get_template_details" type="object" string="Lấy thông tin template" class="oe_highlight"/>
+                        <button name="open_preview_url" string="Xem trước template" type="object" icon="fa-search" class="btn-primary"/>
+                        <!-- <button name="get_sample_data_of_template" type="object" string="Lấy dữ liệu mẫu template" class="oe_highlight"/> -->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="zalo_oa_id"/>
+                                <field name="zns_template_id"/>
+                                <field name="name"/>
+                                <field name="model_id"/>
+                            </group>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="status"/>
+                                <field name="preview_url"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="zns" string="ZNS Value">
+                                <field name='template_data' widget="one2many" nolabel="1">
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="model_id" invisible="1"/>
+                                                <field name="name"/>
+                                                <field name="field_type" domain="[('model_id','=',model_id)]"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                    <tree>
+                                        <field name="model_id" invisible="1"/>
+                                        <field name="name"/>         
+                                        <field name="field_type" domain="[('model_id','=',model_id)]"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>   
+            </field>
+        </record>
+
+        <record id="zns_template_view_form_tree" model="ir.ui.view">
+            <field name="name">zns.template.view.form.tree</field>
+            <field name="model">zns.template</field>
+            <field name="arch" type="xml">
+                <tree string="ZNS Templates">
+                    <field name="name"/>
+                    <field name="create_date"/>
+                </tree>   
+            </field>
+        </record>
+
+        <record id="zns_template_action" model="ir.actions.act_window">
+            <field name="name">ZNS Template</field>
+            <field name="res_model">zns.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="zns_template_menu"
+            parent="zalo_connector_menu"
+            action="zns_template_action"
+            sequence="1"/>
+    </data>
+
+</odoo>
+
+

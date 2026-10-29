@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_zalo_oa_form" model="ir.ui.view">
+        <field name="name">view.zalo.oa.form</field>
+        <field name="model">zalo.oa</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="get_authorization_code" type="object" string="Get Authorization Code"/>
+                    <button name="action_refresh_access_token" type="object" string="Refresh Access Token"/>
+                    <button name="send_message" type="object" string="Send Message"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Shoes Selling"/></h1>
+                    </div>
+                    <group>
+                        <group colspan="2">
+                            <field name="app_id" />
+                            <field name="secret_key" />
+                            <field name="auth_code" />
+                        </group>
+                        <separator/>
+                        <group>
+                            <field name="access_token" />
+                            <field name="access_token_expired_date" />
+                        </group>
+                        <group>
+                            <field name="refresh_token"  />
+                            <field name="refresh_token_expired_date" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Zalo Transactions">
+                            <field name="transaction_ids" nolabel="1">
+                                <tree decoration-danger="not is_success" decoration-success="is_success">
+                                    <field name="create_date" />
+                                    <field name="transaction_type" />
+                                    <field name="is_success" invisible="1" />
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="transaction_type" />
+                                                <field name="is_success" />
+                                            </group>
+                                            <separator string="JSON Data" />
+                                             <field name="json_data" widget="ace" options="{'mode': 'python'}"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

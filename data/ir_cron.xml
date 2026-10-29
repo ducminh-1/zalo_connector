@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="cron_zalo_auto_refresh_token" model="ir.cron">
+			<field name="name">Zalo: auto refresh token</field>
+			<field name="active" eval="True" />
+			<field name="user_id" ref="base.user_root"/>
+			<field name="state">code</field>
+			<field name="code">model.auto_refresh_token()</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall">0</field>
+			<field name="model_id" ref="model_zalo_oa"/>
+		</record>
+		<record id="ir_cron_zalo_campaign_queue" model="ir.cron">
+            <field name="name">Zalo: ZNS Campaign</field>
+            <field name="model_id" ref="model_zns_campaign"/>
+            <field name="state">code</field>
+            <field name="code">model._process_queue()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record> 
+
+		<record id="ir_cron_send_message" model="ir.cron">
+            <field name="name">Zalo: Send Message</field>
+            <field name="model_id" ref="model_zns_messages"/>
+            <field name="state">code</field>
+            <field name="code">model._process_send_message_queue()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record> 
+    </data>	     
+</odoo>

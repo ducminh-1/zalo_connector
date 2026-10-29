@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_create_zns_template" model="ir.actions.act_window">
+        <field name="name">Create ZNS Template</field>
+        <field name="res_model">send.zns.template</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+    </record>
+</odoo>

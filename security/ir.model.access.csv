@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zalo_oa,access_zalo_oa,model_zalo_oa,base.group_user,1,1,1,1
+access_zalo_oa_transaction,access_zalo_oa_transaction,model_zalo_oa_transaction,base.group_user,1,0,0,0
+access_zns_template,zns_template,model_zns_template,base.group_user,1,1,1,1
+access_zns_template_line,zns_template_line,model_zns_template_line,base.group_user,1,1,1,1
+access_zns_messages,zns_messages,model_zns_messages,base.group_user,1,1,1,1
+access_zns_campaign,zns_campaign,model_zns_campaign,base.group_user,1,1,1,1
+access_schedule_date_campaign,schdule_date,model_schedule_date_campaign,base.group_user,1,1,1,1
+access_send_zns_template,send_zns_template,model_send_zns_template,base.group_user,1,1,1,1

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_zalo_api_settings" model="ir.ui.view">
+        <field name="name">view.zalo.api.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" string="Zalo" data-string="Zalo" data-key="zalo_connector">
+                    <h2>Zalo API</h2>
+                   <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                             <div class="o_setting_left_pane">
+	                        </div>
+	                        <div class="o_setting_right_pane">
+	                            <div class="content-group mt16" id="zalo_api">
+	                                 <div class="mt16 row">
+                                        <label
+                                            for="zalo_oa_name"
+                                            class="col-md-4 o_light_label"
+                                        />
+	                                    <field name="zalo_oa_name"/>
+	                                    <label
+                                            for="zalo_app_id"
+                                            class="col-md-4 o_light_label"
+                                        />
+	                                    <field name="zalo_app_id" />
+	                                    <label
+                                            for="zalo_secret_key"
+                                            class="col-md-4 o_light_label"
+                                        />
+	                                    <field name="zalo_secret_key" />
+                                        <label
+                                            for="zalo_callback_url"
+                                            class="col-md-4 o_light_label"
+                                        />
+                                        <field
+                                            name="zalo_callback_url"
+                                        />
+	                                </div>
+	                                <div
+                                        class="mt16"
+                                        attrs="{'invisible': ['|',('zalo_app_id', '=', False), ('zalo_secret_key', '=', False)]}"
+                                    >
+                                        <button
+                                            name="zalo_authorization_code"
+                                            type="object"
+                                            class="btn-link"
+                                            icon="fa-archive"
+                                            string="Zalo Authorization Code"
+                                        />
+                                    </div>
+	                            </div>
+	                        </div>
+                        </div>
+                    </div> 
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_zalo_api" model="ir.actions.act_window">
+        <field name="name">Zalo API</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_zalo_api_settings" />
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'zalo_connector'}</field>
+    </record>
+
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.zalo_connector</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='point_of_sale']" position="inside">
+                <h2>ZALO OA</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="zalo_oa_id"/>
+                            <div class="text-muted">
+                                Settings on this page will apply to this Zalo OA.
+                            </div>
+                            <div class="text-muted">
+                                <field name="zalo_oa_id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="company_template_id" string="ZNS Template"/>
+                            <div class="text-muted">
+                                Automatic Zalo OA Message sent after the customer has paid order.
+                            </div>
+                            <div class="text-muted">
+                                <field name="company_template_id"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

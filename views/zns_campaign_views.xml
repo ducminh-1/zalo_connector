@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zns_campaign_view_form" model="ir.ui.view">
+        <field name="name">zns.campaign.view.form</field>
+        <field name="model">zns.campaign</field>
+        <field name="arch" type="xml">
+            <form string='ZNS Campaign'>
+                <header>
+                    <button name="action_send" type="object" class="oe_highlight" string="Send"
+                            attrs="{'invisible': [('state', 'in', ('sending', 'done'))]}"/>
+                    <button name="action_schedule" type="object" class="btn-secondary" string="Schedule"
+                            attrs="{'invisible': [('state', 'in', ('in_queue',  'sending', 'done'))]}" data-hotkey="x"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="btn-secondary" data-hotkey="z" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group class="zns_campaign">
+                        <label for="subject">Subject</label>
+                        <div>
+                            <field class="text-break" name="subject" string="Subject"
+                                options="{'dynamic_placeholder': true}"
+                                attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
+                                widget="char_emojis" placeholder="e.g. New Sale on all T-shirts"/>
+                        </div>
+                        <label for="model_id" string="Recipients"/>
+                        <div name="model_id_container">
+                            <div class="d-flex flex-row align-items-baseline flex-wrap">
+                                <div class="me-5">
+                                    <field name="model_id" options="{'no_open': True, 'no_create': True}"
+                                        attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"/>
+                                </div>
+                            </div>
+                            <field name="model_name" invisible="1"/>
+                            <field name="model_real" invisible="1"/>
+                            <div attrs="{'invisible': [('model_name', '=', 'mailing.list')]}">
+                                <field name="domain" widget="domain" options="{'model': 'model_real'}"
+                                attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group class="group">
+                        <group class="oe_left">
+                            <field name="zns_template" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                        <group class="oe_right" name="schedule_date">
+                                <field name="schedule_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Chat" name="chat_message"/>
+                        <page string="Settings">
+                            <field name="user_id" widget="many2one_avatar_user"
+                                domain="[('share', '=', False)]"/>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>  
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="zns_campaign_view_form_tree" model="ir.ui.view">
+        <field name="name">zns.campaign.view.form.tree</field>
+        <field name="model">zns.campaign</field>
+        <field name="arch" type="xml">
+            <tree string="ZNS Campaign">
+                <field name="calendar_date" string="Date"/>
+                <field name="subject"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="sent" sum="Total"/>
+                <field name="failed" sum="Total"/>
+                <field name="state"/> 
+            </tree>   
+        </field>
+    </record>
+
+    <record id="zns_campaign_action" model="ir.actions.act_window">
+        <field name="name">ZNS Campaign</field>
+        <field name="res_model">zns.campaign</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="zns_campaign_menu"
+        parent="zalo_connector_menu" 
+        action="zns_campaign_action" 
+        sequence="1"/>
+</odoo>
+
